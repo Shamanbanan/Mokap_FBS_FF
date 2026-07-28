@@ -4,227 +4,352 @@
 <meta charset="UTF-8">
 <title>FBS Board — макет</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          bg: '#EAEDF2',
-          surface: '#FFFFFF',
-          'surface-alt': '#F5F7FA',
-          border: '#DCE1E8',
-          'border-strong': '#C4CBD6',
-          text: '#171A21',
-          'text-dim': '#5B6472',
-          'text-faint': '#8991A0',
-          wb: '#7C3AED',
-          'wb-dim': '#EDE7FC',
-          ozon: '#005BFF',
-          'ozon-dim': '#E4EDFF',
-          accent: '#E85D2C',
-          'accent-dim': '#FCE6DB',
-          success: '#157347',
-          'success-dim': '#DFF4E8',
-          warn: '#92600A',
-          'warn-dim': '#FFF1D6',
-          info: '#1D4ED8',
-          'info-dim': '#E4EBFF',
-          danger: '#B42318',
-          'danger-dim': '#FBE5E3',
-          teal: '#0F766E',
-          'teal-dim': '#DFF5F1',
-          nav: '#1B1E26',
-          'nav-hover': '#262A34',
-          'nav-text': '#C7CCD6'
-        },
-        fontFamily: {
-          mono: ['JetBrains Mono', 'SF Mono', Consolas, monospace],
-          sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif]
-        },
-        borderRadius: {
-          'DEFAULT': '10px',
-          'xl': '12px'
-        }
-      }
-    }
-  }
-</script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;background:#EAEDF2;color:#171A21;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13.5px;-webkit-font-smoothing:antialiased;}
-  ::-webkit-scrollbar{height:10px;width:10px;}
-  ::-webkit-scrollbar-thumb{background:#C4CBD6;border-radius:6px;}
-  ::-webkit-scrollbar-track{background:transparent;}
-  
-  .mp-toggle[data-mp="ozon"] .slider{transform:translateX(100%);background:#005BFF;}
-  .spin{animation:spin 0.7s linear infinite;}
-  @keyframes spin{to{transform:rotate(360deg);}}
-  
-  /* Custom checkbox styling */
-  input[type="checkbox"]:checked{accent-color:#E85D2C;}
-  input[type="radio"]:checked{accent-color:#E85D2C;}
-  
-  /* Modal animations */
-  @keyframes toastin{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-  
-  @media print{
-    body *{visibility:hidden;}
-    #print-area, #print-area *{visibility:visible;}
-    #print-area{position:absolute;left:0;top:0;width:100%;}
-  }
+:root{
+  --bg:#EAEDF2;
+  --surface:#FFFFFF;
+  --surface-alt:#F5F7FA;
+  --border:#DCE1E8;
+  --border-strong:#C4CBD6;
+  --text:#171A21;
+  --text-dim:#5B6472;
+  --text-faint:#8991A0;
+  --wb:#7C3AED;
+  --wb-dim:#EDE7FC;
+  --ozon:#005BFF;
+  --ozon-dim:#E4EDFF;
+  --accent:#E85D2C;
+  --accent-dim:#FCE6DB;
+  --success:#157347;
+  --success-dim:#DFF4E8;
+  --warn:#92600A;
+  --warn-dim:#FFF1D6;
+  --info:#1D4ED8;
+  --info-dim:#E4EBFF;
+  --danger:#B42318;
+  --danger-dim:#FBE5E3;
+  --teal:#0F766E;
+  --teal-dim:#DFF5F1;
+  --radius:10px;
+  --mono:'JetBrains Mono','SF Mono',Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13.5px;-webkit-font-smoothing:antialiased;}
+button{font-family:var(--sans);cursor:pointer;}
+input,select,textarea{font-family:var(--sans);}
+::-webkit-scrollbar{height:10px;width:10px;}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+/* ---------- layout ---------- */
+#app{display:flex;flex-direction:column;height:100vh;}
+.topbar{
+  display:flex;align-items:center;gap:16px;
+  background:var(--text);color:#fff;padding:0 20px;height:52px;flex-shrink:0;
+}
+.logo{font-weight:800;letter-spacing:.2px;font-size:15px;display:flex;align-items:center;gap:8px;}
+.logo .dot{width:8px;height:8px;border-radius:2px;background:var(--accent);display:inline-block;}
+.ff-name{color:#B9C0CE;font-size:12.5px;border-left:1px solid #383D48;padding-left:16px;margin-left:4px;}
+.topbar-spacer{flex:1;}
+.op-chip{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#D2D7E0;}
+.op-avatar{width:26px;height:26px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;}
+
+.body-shell{display:flex;flex:1;min-height:0;}
+.nav{
+  width:208px;flex-shrink:0;background:#1B1E26;color:#C7CCD6;
+  display:flex;flex-direction:column;padding:14px 10px;gap:2px;
+}
+.nav button{
+  display:flex;align-items:center;gap:10px;background:none;border:none;color:inherit;
+  padding:10px 12px;border-radius:8px;font-size:13px;text-align:left;font-weight:500;
+}
+.nav button svg{flex-shrink:0;opacity:.85;}
+.nav button:hover{background:#262A34;}
+.nav button.active{background:var(--accent);color:#fff;}
+.nav button.active svg{opacity:1;}
+.nav-sep{height:1px;background:#2B2F3A;margin:10px 4px;}
+.nav-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:#6E7480;padding:8px 12px 4px;}
+
+.main{flex:1;min-width:0;overflow:auto;padding:18px 22px 40px;}
+.screen{display:none;}
+.screen.active{display:block;}
+
+h1.screen-title{font-size:17px;margin:0 0 4px;font-weight:800;}
+.screen-sub{color:var(--text-dim);font-size:12.5px;margin:0 0 16px;}
+
+/* ---------- toggle (signature element) ---------- */
+.mp-toggle{
+  display:inline-flex;background:var(--surface);border:1px solid var(--border-strong);
+  border-radius:999px;padding:3px;gap:2px;position:relative;
+}
+.mp-toggle button{
+  border:none;background:none;padding:7px 20px;border-radius:999px;font-weight:700;font-size:12.5px;
+  color:var(--text-dim);position:relative;z-index:1;transition:color .15s;letter-spacing:.2px;
+}
+.mp-toggle .slider{
+  position:absolute;top:3px;bottom:3px;left:3px;width:calc(50% - 3px);border-radius:999px;
+  background:var(--wb);transition:transform .22s cubic-bezier(.4,0,.2,1),background .22s;z-index:0;
+}
+.mp-toggle[data-mp="ozon"] .slider{transform:translateX(100%);background:var(--ozon);}
+.mp-toggle button.active{color:#fff;}
+
+/* ---------- cards / toolbars ---------- */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);}
+.toolbar{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;
+}
+.toolbar.row2{border-top:1px solid var(--border);background:var(--surface-alt);border-radius:0 0 var(--radius) var(--radius);}
+
+.msel{position:relative;}
+.msel-btn{
+  background:var(--surface);border:1px solid var(--border-strong);border-radius:8px;
+  padding:7px 12px;font-size:12.5px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px;
+}
+.msel-btn:hover{border-color:var(--text-dim);}
+.msel-btn .count{background:var(--accent);color:#fff;border-radius:999px;font-size:10.5px;padding:1px 6px;font-weight:700;}
+.msel-pop{
+  display:none;position:absolute;top:calc(100% + 6px);left:0;background:#fff;border:1px solid var(--border-strong);
+  border-radius:8px;box-shadow:0 8px 24px rgba(20,24,34,.14);z-index:50;min-width:200px;padding:6px;max-height:260px;overflow:auto;
+}
+.msel.open .msel-pop{display:block;}
+.msel-opt{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;font-size:12.5px;}
+.msel-opt:hover{background:var(--surface-alt);}
+.msel-opt input{accent-color:var(--accent);}
+.msel-clear{font-size:11px;color:var(--text-faint);padding:6px 8px;border-top:1px solid var(--border);margin-top:4px;}
+.msel-clear button{background:none;border:none;color:var(--info);font-weight:600;font-size:11px;padding:0;}
+
+.btn{
+  border:1px solid var(--border-strong);background:#fff;border-radius:8px;padding:7px 13px;
+  font-size:12.5px;font-weight:600;color:var(--text);display:inline-flex;align-items:center;gap:6px;
+}
+.btn:hover:not(:disabled){border-color:var(--text-dim);}
+.btn:disabled{opacity:.38;cursor:not-allowed;}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+.btn-primary:hover:not(:disabled){background:#D14F20;}
+.btn-dark{background:var(--text);border-color:var(--text);color:#fff;}
+.btn-ghost{background:none;border-color:transparent;}
+.btn-danger-ghost{background:none;border:1px solid var(--danger-dim);color:var(--danger);}
+.btn-sm{padding:4px 9px;font-size:11.5px;border-radius:6px;}
+.refresh-ico{display:inline-block;transition:transform .5s;}
+.spin{animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ---------- table ---------- */
+.table-wrap{overflow:auto;border-top:1px solid var(--border);}
+table{border-collapse:collapse;width:100%;min-width:1400px;}
+thead th{
+  position:sticky;top:0;background:var(--surface-alt);text-align:left;font-size:10.8px;text-transform:uppercase;
+  letter-spacing:.4px;color:var(--text-dim);padding:9px 10px;border-bottom:1px solid var(--border);white-space:nowrap;font-weight:700;z-index:2;
+}
+tbody td{padding:7px 10px;border-bottom:1px solid var(--border);font-size:12.5px;vertical-align:middle;white-space:nowrap;}
+tbody tr:hover{background:#FAFBFD;}
+tbody tr.sel{background:var(--accent-dim);}
+tbody tr.sel:hover{background:#FADFCF;}
+th.sticky-l,td.sticky-l{position:sticky;left:0;background:inherit;z-index:1;}
+th.sticky-l2,td.sticky-l2{position:sticky;left:36px;background:inherit;z-index:1;}
+thead th.sticky-l,thead th.sticky-l2{background:var(--surface-alt);z-index:3;}
+tbody td.sticky-l,tbody td.sticky-l2{background:#fff;}
+tbody tr:hover td.sticky-l,tbody tr:hover td.sticky-l2{background:#FAFBFD;}
+tbody tr.sel td.sticky-l,tbody tr.sel td.sticky-l2{background:var(--accent-dim);}
+.thumb{width:30px;height:30px;border-radius:6px;background:var(--surface-alt);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--text-faint);}
+.mono{font-family:var(--mono);font-size:11.5px;color:var(--text-dim);}
+.editable{
+  border:1px solid transparent;background:transparent;border-radius:5px;padding:3px 5px;font-size:12px;width:78px;
+}
+.editable:hover{border-color:var(--border-strong);}
+.editable:focus{border-color:var(--accent);outline:none;background:#fff;}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:2.5px 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;}
+.chip-NEW{background:#EEF0F3;color:#5B6472;}
+.chip-IN_PICKING{background:var(--warn-dim);color:var(--warn);}
+.chip-PICKED{background:var(--info-dim);color:var(--info);}
+.chip-NOT_FOUND{background:var(--danger-dim);color:var(--danger);}
+.chip-CONFIRMED{background:var(--wb-dim);color:var(--wb);}
+.chip-LABELED{background:var(--teal-dim);color:var(--teal);}
+.chip-SHIPPED{background:var(--success-dim);color:var(--success);}
+.chip-CANCELLED{background:#F3D9D9;color:#8A1F1F;}
+.tag{font-size:10.5px;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-dim);font-weight:700;border:1px solid var(--border);}
+.deadline-soon{color:var(--danger);font-weight:700;}
+td.center{text-align:center;}
+.revert-btn{background:none;border:none;color:var(--text-faint);font-size:13px;padding:2px;}
+.revert-btn:hover{color:var(--danger);}
+
+/* ---------- selection bar ---------- */
+.selbar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#20232C;color:#fff;border-radius:0;flex-wrap:wrap;}
+.selbar b{color:var(--accent);}
+.selbar .btn{border-color:#40444F;background:#2A2E39;color:#EAEDF2;}
+.selbar .btn:hover:not(:disabled){border-color:#5A5F6C;}
+.selbar .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+/* ---------- misc ---------- */
+.sync-note{font-size:11.5px;color:var(--text-faint);margin-left:auto;display:flex;align-items:center;gap:6px;}
+.legend-note{font-size:11px;color:var(--text-faint);padding:8px 14px;border-top:1px dashed var(--border);background:var(--surface-alt);border-radius:0 0 var(--radius) var(--radius);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.section-title{font-size:13px;font-weight:800;margin:22px 0 10px;display:flex;align-items:center;gap:8px;}
+.section-title .n{width:20px;height:20px;border-radius:5px;background:var(--text);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:800;}
+
+/* toast */
+#toast{position:fixed;bottom:22px;right:22px;display:flex;flex-direction:column;gap:8px;z-index:999;}
+.toast{background:#20232C;color:#fff;padding:11px 16px;border-radius:8px;font-size:12.5px;box-shadow:0 8px 20px rgba(0,0,0,.25);display:flex;align-items:center;gap:8px;animation:toastin .18s ease-out;max-width:340px;}
+.toast.ok{border-left:3px solid var(--success);}
+.toast.warn{border-left:3px solid var(--accent);}
+@keyframes toastin{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* modal */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(15,17,23,.55);z-index:100;align-items:flex-start;justify-content:center;overflow:auto;padding:36px 16px;}
+.modal-bg.open{display:flex;}
+.modal{background:#fff;border-radius:12px;width:100%;max-width:840px;box-shadow:0 24px 60px rgba(0,0,0,.3);}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);}
+.modal-head h3{margin:0;font-size:15px;}
+.modal-close{background:none;border:none;font-size:18px;color:var(--text-faint);}
+.modal-body{padding:18px 20px;max-height:60vh;overflow:auto;}
+.modal-foot{display:flex;justify-content:flex-end;gap:8px;padding:14px 20px;border-top:1px solid var(--border);background:var(--surface-alt);border-radius:0 0 12px 12px;}
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:11.5px;font-weight:700;color:var(--text-dim);margin-bottom:4px;}
+.field input[type=text],.field select{width:100%;border:1px solid var(--border-strong);border-radius:7px;padding:8px 10px;font-size:13px;}
+
+/* printable sheet */
+.sheet-paper{background:#fff;border:1px solid var(--border-strong);border-radius:4px;padding:26px 30px;max-width:900px;margin:0 auto;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+.sheet-head{display:flex;justify-content:space-between;border-bottom:2px solid var(--text);padding-bottom:12px;margin-bottom:14px;}
+.sheet-head h2{margin:0;font-size:18px;}
+.sheet-meta{font-size:12px;color:var(--text-dim);line-height:1.7;}
+.sheet-table{width:100%;border-collapse:collapse;font-size:12px;}
+.sheet-table th{background:var(--surface-alt);border:1px solid var(--border-strong);padding:6px 8px;text-align:left;font-size:10.5px;text-transform:uppercase;}
+.sheet-table td{border:1px solid var(--border-strong);padding:7px 8px;}
+.sheet-check{width:18px;height:18px;border:1.6px solid var(--text-dim);border-radius:3px;display:inline-block;}
+.sheet-foot{margin-top:20px;display:flex;justify-content:space-between;align-items:flex-end;font-size:11.5px;color:var(--text-dim);}
+.barcode-fake{height:34px;background:repeating-linear-gradient(90deg,#111 0 2px,transparent 2px 5px);width:150px;}
+.picker-select{border:1px solid var(--border-strong);border-radius:7px;padding:6px 10px;font-size:12.5px;}
+
+/* history / cabinets tables */
+.simple-table{width:100%;border-collapse:collapse;}
+.simple-table th{text-align:left;font-size:10.8px;text-transform:uppercase;color:var(--text-dim);border-bottom:1px solid var(--border);padding:9px 12px;letter-spacing:.3px;}
+.simple-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:12.5px;}
+.status-pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;}
+.pill-ok{background:var(--success-dim);color:var(--success);}
+.pill-bad{background:var(--danger-dim);color:var(--danger);}
+.pill-neutral{background:var(--surface-alt);color:var(--text-dim);border:1px solid var(--border);}
+.dot-mp{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:6px;}
+.mp-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px;}
+.mp-badge.wb{background:var(--wb-dim);color:var(--wb);}
+.mp-badge.ozon{background:var(--ozon-dim);color:var(--ozon);}
+
+/* settings screen */
+.settings-card{padding:18px 20px;}
+.radio-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.radio-opt{border:1px solid var(--border-strong);border-radius:8px;padding:9px 14px;font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:8px;cursor:pointer;}
+.radio-opt.checked{border-color:var(--accent);background:var(--accent-dim);color:#B5461F;}
+.num-input{width:90px;border:1px solid var(--border-strong);border-radius:7px;padding:7px 10px;font-size:13px;}
+
+/* audit log */
+.audit{max-height:190px;overflow:auto;font-size:11.5px;}
+.audit-row{display:flex;gap:8px;padding:6px 0;border-bottom:1px dashed var(--border);color:var(--text-dim);}
+.audit-row b{color:var(--text);}
+.audit-time{color:var(--text-faint);font-family:var(--mono);font-size:10.5px;white-space:nowrap;}
+
+@media print{
+  body *{visibility:hidden;}
+  #print-area, #print-area *{visibility:visible;}
+  #print-area{position:absolute;left:0;top:0;width:100%;}
+}
 </style>
 </head>
-<body class="bg-bg text-text font-sans antialiased">
-<div id="app" class="flex flex-col h-screen">
-  <!-- Topbar -->
-  <div class="topbar flex items-center gap-4 bg-text text-white px-5 h-[52px] flex-shrink-0">
-    <div class="logo flex items-center gap-2 font-extrabold tracking-wide text-[15px]">
-      <span class="dot w-2 h-2 rounded-sm bg-accent inline-block"></span>
-      FBS&nbsp;Board
-    </div>
-    <div class="ff-name text-[12.5px] text-[#B9C0CE] border-l border-[#383D48] pl-4 ml-1">
-      Фулфилмент: <b class="text-white">Атлант ФФ, Москва</b>
-    </div>
-    <div class="flex-1"></div>
-    <div class="op-chip flex items-center gap-2 text-[12.5px] text-[#D2D7E0]">
-      <span>Оператор ленты</span>
-      <div class="op-avatar w-[26px] h-[26px] rounded-full bg-accent flex items-center justify-center font-bold text-[11px] text-white">МК</div>
-    </div>
+<body>
+<div id="app">
+  <div class="topbar">
+    <div class="logo"><span class="dot"></span>FBS&nbsp;Board</div>
+    <div class="ff-name">Фулфилмент: <b style="color:#fff">Атлант ФФ, Москва</b></div>
+    <div class="topbar-spacer"></div>
+    <div class="op-chip"><span>Оператор ленты</span><div class="op-avatar">МК</div></div>
   </div>
 
-  <div class="body-shell flex flex-1 min-h-0">
-    <!-- Navigation -->
-    <nav class="nav w-[208px] flex-shrink-0 bg-nav text-nav-text flex flex-col p-[14px_10px] gap-[2px]">
-      <div class="nav-label text-[10.5px] uppercase tracking-widest text-[#6E7480] px-3 py-2 pt-2">Работа со сборкой</div>
-      <button class="nav-btn active flex items-center gap-2.5 bg-none border-none text-inherit px-3 py-2.5 rounded-lg text-[13px] text-left font-medium hover:bg-nav-hover transition-colors" data-screen="feed">
-        <svg class="w-4 h-4 opacity-[0.85]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-        Лента заказов
-      </button>
-      <button class="nav-btn flex items-center gap-2.5 bg-none border-none text-inherit px-3 py-2.5 rounded-lg text-[13px] text-left font-medium hover:bg-nav-hover transition-colors" data-screen="sheet">
-        <svg class="w-4 h-4 opacity-[0.85]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
-        Сборочный лист
-      </button>
-      <button class="nav-btn flex items-center gap-2.5 bg-none border-none text-inherit px-3 py-2.5 rounded-lg text-[13px] text-left font-medium hover:bg-nav-hover transition-colors" data-screen="history">
-        <svg class="w-4 h-4 opacity-[0.85]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-        Сборочные листы
-      </button>
-      <div class="nav-sep h-px bg-[#2B2F3A] my-2.5 mx-1"></div>
-      <div class="nav-label text-[10.5px] uppercase tracking-widest text-[#6E7480] px-3 py-2 pt-2">Администрирование</div>
-      <button class="nav-btn flex items-center gap-2.5 bg-none border-none text-inherit px-3 py-2.5 rounded-lg text-[13px] text-left font-medium hover:bg-nav-hover transition-colors" data-screen="cabinets">
-        <svg class="w-4 h-4 opacity-[0.85]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Кабинеты
-      </button>
-      <button class="nav-btn flex items-center gap-2.5 bg-none border-none text-inherit px-3 py-2.5 rounded-lg text-[13px] text-left font-medium hover:bg-nav-hover transition-colors" data-screen="settings">
-        <svg class="w-4 h-4 opacity-[0.85]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M12 2v2"/><path d="M12 22v-2"/><path d="m17 20.66-1-1.73"/><path d="M11 10.27 7 3.34"/><path d="m20.66 17-1.73-1"/><path d="m3.34 11 6.93-4"/><path d="M14 12h8"/><path d="M2 12h2"/><path d="m20.66 7-1.73 1"/><path d="m3.34 13 6.93 4"/><path d="m17 3.34-1 1.73"/><path d="m11 13.73-4 6.93"/></svg>
-        Настройки печати
-      </button>
-    </nav>
+  <div class="body-shell">
+    <div class="nav">
+      <div class="nav-label">Работа со сборкой</div>
+      <button class="nav-btn active" data-screen="feed">📋 Лента заказов</button>
+      <button class="nav-btn" data-screen="sheet">🧾 Сборочный лист</button>
+      <button class="nav-btn" data-screen="history">🗂 Сборочные листы</button>
+      <div class="nav-sep"></div>
+      <div class="nav-label">Администрирование</div>
+      <button class="nav-btn" data-screen="cabinets">🔑 Кабинеты</button>
+      <button class="nav-btn" data-screen="settings">🖨 Настройки печати</button>
+    </div>
 
-    <!-- Main Content -->
-    <main class="main flex-1 min-w-0 overflow-auto p-[18px_22px_40px]">
+    <div class="main">
 
       <!-- ============ SCREEN 1: ЛЕНТА ЗАКАЗОВ ============ -->
       <div class="screen active" id="screen-feed">
-        <h1 class="text-[17px] font-extrabold mb-1 mt-0">Лента заказов FBS</h1>
-        <p class="text-text-dim text-[12.5px] mb-4 mt-0">Сборочные задания со всех подключённых кабинетов селлеров, сведённые в единую панель. Данные — реальные строки выгрузок WB (Beach&nbsp;Club) и Ozon (ArchiDog), теги ИП/магазин — иллюстративные (проставляются вручную при подключении кабинета).</p>
+        <h1 class="screen-title">Лента заказов FBS</h1>
+        <p class="screen-sub">Сборочные задания со всех подключённых кабинетов селлеров, сведённые в единую панель. Данные — реальные строки выгрузок WB (Beach&nbsp;Club) и Ozon (ArchiDog), теги ИП/магазин — иллюстративные (проставляются вручную при подключении кабинета).</p>
 
-        <div class="card bg-surface border border-border rounded-xl">
-          <div class="toolbar flex items-center gap-2.5 flex-wrap p-3">
-            <div class="mp-toggle inline-flex bg-surface border border-border-strong rounded-full p-[3px] gap-[2px] relative" id="mpToggle" data-mp="wb">
-              <div class="slider absolute top-[3px] bottom-[3px] left-[3px] w-[calc(50%-3px)] rounded-full bg-wb transition-transform duration-[220ms] ease-[cubic-bezier(.4,0,.2,1)] z-0"></div>
-              <button class="active border-none bg-none py-[7px] px-5 rounded-full font-bold text-[12.5px] text-text-dim relative z-10 transition-colors duration-150 tracking-wide" data-mp="wb">Wildberries</button>
-              <button class="border-none bg-none py-[7px] px-5 rounded-full font-bold text-[12.5px] text-text-dim relative z-10 transition-colors duration-150 tracking-wide" data-mp="ozon">Ozon</button>
+        <div class="card">
+          <div class="toolbar">
+            <div class="mp-toggle" id="mpToggle" data-mp="wb">
+              <div class="slider"></div>
+              <button class="active" data-mp="wb">Wildberries</button>
+              <button data-mp="ozon">Ozon</button>
             </div>
-            <div class="sync-note text-[11.5px] text-text-faint ml-auto flex items-center gap-1.5" id="syncNote">Обновлено только что</div>
-            <select id="autoRefreshSel" class="picker-select border border-border-strong rounded-lg py-1.5 px-2.5 text-[12.5px]">
+            <div class="sync-note" id="syncNote">Обновлено только что</div>
+            <select id="autoRefreshSel" class="picker-select" style="margin-left:0;">
               <option value="15">Авто: 15 мин</option>
               <option value="30" selected>Авто: 30 мин</option>
               <option value="60">Авто: 60 мин</option>
             </select>
-            <button class="btn border border-border-strong bg-white rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-text inline-flex items-center gap-1.5 hover:border-text-dim transition-colors" id="refreshBtn">
-              <svg class="refresh-ico w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
-              Обновить
-            </button>
+            <button class="btn" id="refreshBtn"><span class="refresh-ico" id="refreshIco">🔄</span> Обновить</button>
           </div>
-          <div class="toolbar row2 border-t border-border bg-surface-alt rounded-b-xl p-3" id="filterBar"></div>
+          <div class="toolbar row2" id="filterBar"></div>
 
-          <div class="selbar flex items-center gap-2 p-2.5 bg-[#20232C] text-white flex-wrap" id="selbar" style="display:none;">
-            <span>Выбрано: <b id="selCount" class="text-accent">0</b></span>
-            <button class="btn btn-primary border border-accent bg-accent rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-white inline-flex items-center gap-1.5 hover:bg-[#D14F20] transition-colors" id="actFormSheet">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
-              Сформировать сборочный лист
-            </button>
-            <button class="btn border border-border-strong bg-white rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-text inline-flex items-center gap-1.5 hover:border-text-dim transition-colors" id="actTransfer">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              Передать в МП
-            </button>
-            <button class="btn border border-border-strong bg-white rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-text inline-flex items-center gap-1.5 hover:border-text-dim transition-colors" id="actLabels">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.2 7.8l-7.7 7.7a4 4 0 0 1-5.7 0l-4-4a4 4 0 0 1 0-5.7l7.7-7.7a4 4 0 0 1 5.7 0l4 4a4 4 0 0 1 0 5.7Z"/><path d="m15 5 4 4"/></svg>
-              Печать стикеров
-            </button>
-            <button class="btn border border-border-strong bg-white rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-text inline-flex items-center gap-1.5 hover:border-text-dim transition-colors" id="actShip">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-              Отгрузить
-            </button>
-            <button class="btn btn-ghost bg-none border-transparent rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-[#EAEDF2] inline-flex items-center gap-1.5 ml-auto hover:border-text-dim transition-colors" id="actExport">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-              Выгрузить в CSV
-            </button>
-            <button class="btn btn-ghost bg-none border-transparent rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-[#EAEDF2] inline-flex items-center gap-1.5 hover:border-text-dim transition-colors" id="actClear">Снять выделение</button>
+          <div class="selbar" id="selbar" style="display:none;">
+            <span>Выбрано: <b id="selCount">0</b></span>
+            <button class="btn btn-primary" id="actFormSheet">📄 Сформировать сборочный лист</button>
+            <button class="btn" id="actTransfer">➡️ Передать в МП</button>
+            <button class="btn" id="actLabels">🏷 Печать стикеров</button>
+            <button class="btn" id="actShip">🚚 Отгрузить</button>
+            <button class="btn btn-ghost" id="actExport" style="margin-left:auto;color:#EAEDF2;">⬇ Выгрузить в CSV</button>
+            <button class="btn btn-ghost" id="actClear" style="color:#EAEDF2;">Снять выделение</button>
           </div>
 
-          <div class="table-wrap overflow-auto border-t border-border">
-            <table class="border-collapse w-full min-w-[1400px]">
+          <div class="table-wrap">
+            <table>
               <thead><tr id="theadRow"></tr></thead>
               <tbody id="tbody"></tbody>
             </table>
           </div>
-          <div class="legend-note text-[11px] text-text-faint p-2 pt-2.5 pb-3 border-t border-dashed border-border bg-surface-alt rounded-b-xl">⚠ Фото и наименование товара — заглушка (в проде подтягиваются по nmId/SKU из карточки товара, отдельный кэшируемый запрос, см. п. F-2.5 документа требований). КГТ для Ozon требует расчёта из габаритов — помечено «—».</div>
+          <div class="legend-note">⚠ Фото и наименование товара — заглушка (в проде подтягиваются по nmId/SKU из карточки товара, отдельный кэшируемый запрос, см. п. F-2.5 документа требований). КГТ для Ozon требует расчёта из габаритов — помечено «—».</div>
         </div>
 
-        <div class="section-title text-[13px] font-extrabold mt-5.5 mb-2.5 flex items-center gap-2">
-          <span class="n w-5 h-5 rounded-md bg-text text-white text-[11px] flex items-center justify-center font-extrabold">i</span>
-          Журнал действий (аудит)
-        </div>
-        <div class="card bg-surface border border-border rounded-xl p-2.5">
-          <div class="audit max-h-[190px] overflow-auto text-[11.5px]" id="auditLog"></div>
+        <div class="section-title"><span class="n">i</span>Журнал действий (аудит)</div>
+        <div class="card" style="padding:10px 14px;">
+          <div class="audit" id="auditLog"></div>
         </div>
       </div>
 
       <!-- ============ SCREEN 2: СБОРОЧНЫЙ ЛИСТ ============ -->
       <div class="screen" id="screen-sheet">
-        <h1 class="text-[17px] font-extrabold mb-1 mt-0">Сборочный лист — печатная форма A4</h1>
-        <p class="text-text-dim text-[12.5px] mb-4 mt-0">Формируется из выделенных строк ленты. Кладовщик печатает лист, физически собирает товар, отмечает галочки на бумаге. Стикер на этом этапе ещё недоступен — маркетплейсы отдают этикетку только после передачи статуса.</p>
+        <h1 class="screen-title">Сборочный лист — печатная форма A4</h1>
+        <p class="screen-sub">Формируется из выделенных строк ленты. Кладовщик печатает лист, физически собирает товар, отмечает галочки на бумаге. Стикер на этом этапе ещё недоступен — маркетплейсы отдают этикетку только после передачи статуса.</p>
 
-        <div class="card bg-surface border border-border rounded-xl p-[14px_16px] mb-3.5 flex items-center gap-3 flex-wrap">
-          <label class="text-[12px] font-bold text-text-dim">Открыть лист:</label>
-          <select id="sheetPicker" class="picker-select border border-border-strong rounded-lg py-1.5 px-2.5 text-[12.5px]"></select>
-          <div class="ml-auto flex gap-2">
-            <button class="btn border border-border-strong bg-white rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-text inline-flex items-center gap-1.5 hover:border-text-dim transition-colors" id="printSheetBtn">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-              Напечатать
-            </button>
-            <button class="btn btn-primary border border-accent bg-accent rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-white inline-flex items-center gap-1.5 hover:bg-[#D14F20] transition-colors" id="confirmPickBtn">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Подтвердить результат сборки
-            </button>
+        <div class="card" style="padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <label style="font-size:12px;font-weight:700;color:var(--text-dim);">Открыть лист:</label>
+          <select id="sheetPicker" class="picker-select"></select>
+          <div style="margin-left:auto;display:flex;gap:8px;">
+            <button class="btn" id="printSheetBtn">🖨 Напечатать</button>
+            <button class="btn btn-primary" id="confirmPickBtn">✅ Подтвердить результат сборки</button>
           </div>
         </div>
 
         <div id="print-area">
-          <div class="sheet-paper bg-white border border-border-strong rounded-md p-[26px_30px] max-w-[900px] mx-auto shadow-sm" id="sheetPaper"></div>
+          <div class="sheet-paper" id="sheetPaper"></div>
         </div>
       </div>
 
       <!-- ============ SCREEN 3: ИСТОРИЯ ЛИСТОВ ============ -->
       <div class="screen" id="screen-history">
-        <h1 class="text-[17px] font-extrabold mb-1 mt-0">Сборочные листы — история</h1>
-        <p class="text-text-dim text-[12.5px] mb-4 mt-0">Все сформированные сборочные листы: статус, состав, кто сформировал.</p>
-        <div class="card bg-surface border border-border rounded-xl">
-          <table class="simple-table w-full border-collapse">
-            <thead><tr><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">№ листа</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">Дата</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">Маркетплейс</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">ФФ-сотрудник</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">Позиций</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">Статус</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide"></th></tr></thead>
+        <h1 class="screen-title">Сборочные листы — история</h1>
+        <p class="screen-sub">Все сформированные сборочные листы: статус, состав, кто сформировал.</p>
+        <div class="card">
+          <table class="simple-table">
+            <thead><tr><th>№ листа</th><th>Дата</th><th>Маркетплейс</th><th>ФФ-сотрудник</th><th>Позиций</th><th>Статус</th><th></th></tr></thead>
             <tbody id="historyBody"></tbody>
           </table>
         </div>
@@ -232,145 +357,98 @@
 
       <!-- ============ SCREEN 4: КАБИНЕТЫ ============ -->
       <div class="screen" id="screen-cabinets">
-        <h1 class="text-[17px] font-extrabold mb-1 mt-0">Подключённые кабинеты</h1>
-        <p class="text-text-dim text-[12.5px] mb-4 mt-0">Один ФФ видит только свои кабинеты. Теги «ИП» и «Магазин» проставляются администратором вручную — в самом сборочном задании юрлица нет ни у WB, ни у Ozon.</p>
+        <h1 class="screen-title">Подключённые кабинеты</h1>
+        <p class="screen-sub">Один ФФ видит только свои кабинеты. Теги «ИП» и «Магазин» проставляются администратором вручную — в самом сборочном задании юрлица нет ни у WB, ни у Ozon.</p>
 
-        <div class="card bg-surface border border-border rounded-xl">
-          <table class="simple-table w-full border-collapse">
-            <thead><tr><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">МП</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">Название кабинета</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">ИП / юрлицо</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">Магазин</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">Ключ</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">Синхронизация</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide"></th></tr></thead>
+        <div class="card">
+          <table class="simple-table">
+            <thead><tr><th>МП</th><th>Название кабинета</th><th>ИП / юрлицо</th><th>Магазин</th><th>Ключ</th><th>Синхронизация</th><th></th></tr></thead>
             <tbody id="cabinetsBody"></tbody>
           </table>
         </div>
 
-        <div class="section-title text-[13px] font-extrabold mt-5.5 mb-2.5 flex items-center gap-2">
-          <span class="n w-5 h-5 rounded-md bg-text text-white text-[11px] flex items-center justify-center font-extrabold">+</span>
-          Добавить кабинет
-        </div>
-        <div class="card bg-surface border border-border rounded-xl p-[18px_20px]">
-          <div class="grid2 grid grid-cols-2 gap-4">
-            <div class="field mb-3">
-              <label class="block text-[11.5px] font-bold text-text-dim mb-1">Маркетплейс</label>
-              <select id="newCabMp" class="w-full border border-border-strong rounded-lg py-2 px-2.5 text-[13px]"><option value="wb">Wildberries</option><option value="ozon">Ozon</option></select>
+        <div class="section-title"><span class="n">+</span>Добавить кабинет</div>
+        <div class="card settings-card">
+          <div class="grid2">
+            <div class="field"><label>Маркетплейс</label>
+              <select id="newCabMp"><option value="wb">Wildberries</option><option value="ozon">Ozon</option></select>
             </div>
-            <div class="field mb-3">
-              <label class="block text-[11.5px] font-bold text-text-dim mb-1">Название кабинета</label>
-              <input type="text" id="newCabName" class="w-full border border-border-strong rounded-lg py-2 px-2.5 text-[13px]" placeholder="напр. Wildberries — Мой магазин">
-            </div>
-            <div class="field mb-3">
-              <label class="block text-[11.5px] font-bold text-text-dim mb-1">API-ключ</label>
-              <input type="text" id="newCabKey" class="w-full border border-border-strong rounded-lg py-2 px-2.5 text-[13px]" placeholder="вставьте токен / Client-Id:Api-Key">
-            </div>
-            <div class="field mb-3">
-              <label class="block text-[11.5px] font-bold text-text-dim mb-1">Тег «ИП / юрлицо»</label>
-              <input type="text" id="newCabIp" class="w-full border border-border-strong rounded-lg py-2 px-2.5 text-[13px]" placeholder="напр. ИП Смирнов А.А.">
-            </div>
-            <div class="field mb-3">
-              <label class="block text-[11.5px] font-bold text-text-dim mb-1">Тег «Магазин»</label>
-              <input type="text" id="newCabShop" class="w-full border border-border-strong rounded-lg py-2 px-2.5 text-[13px]" placeholder="напр. МойМагазин">
-            </div>
+            <div class="field"><label>Название кабинета</label><input type="text" id="newCabName" placeholder="напр. Wildberries — Мой магазин"></div>
+            <div class="field"><label>API-ключ</label><input type="text" id="newCabKey" placeholder="вставьте токен / Client-Id:Api-Key"></div>
+            <div class="field"><label>Тег «ИП / юрлицо»</label><input type="text" id="newCabIp" placeholder="напр. ИП Смирнов А.А."></div>
+            <div class="field"><label>Тег «Магазин»</label><input type="text" id="newCabShop" placeholder="напр. МойМагазин"></div>
           </div>
-          <button class="btn btn-primary border border-accent bg-accent rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-white inline-flex items-center gap-1.5 hover:bg-[#D14F20] transition-colors" id="addCabinetBtn">Проверить ключ и добавить</button>
+          <button class="btn btn-primary" id="addCabinetBtn">Проверить ключ и добавить</button>
         </div>
       </div>
 
       <!-- ============ SCREEN 5: НАСТРОЙКИ ПЕЧАТИ ============ -->
       <div class="screen" id="screen-settings">
-        <h1 class="text-[17px] font-extrabold mb-1 mt-0">Настройки печати и синхронизации</h1>
-        <p class="text-text-dim text-[12.5px] mb-4 mt-0">Общие для фулфилмента настройки формата этикеток, размера сборочного листа и частоты обновления ленты.</p>
+        <h1 class="screen-title">Настройки печати и синхронизации</h1>
+        <p class="screen-sub">Общие для фулфилмента настройки формата этикеток, размера сборочного листа и частоты обновления ленты.</p>
 
-        <div class="section-title text-[13px] font-extrabold mt-5.5 mb-2.5 flex items-center gap-2">
-          <span class="n w-5 h-5 rounded-md bg-text text-white text-[11px] flex items-center justify-center font-extrabold">1</span>
-          Этикетки Wildberries
-        </div>
-        <div class="card bg-surface border border-border rounded-xl p-[18px_20px]">
-          <div class="field mb-3">
-            <label class="block text-[11.5px] font-bold text-text-dim mb-1">Формат стикера</label>
-            <div class="radio-row flex gap-2.5 flex-wrap mt-1.5" id="wbFormatRow"></div>
+        <div class="section-title"><span class="n">1</span>Этикетки Wildberries</div>
+        <div class="card settings-card">
+          <div class="field"><label>Формат стикера</label>
+            <div class="radio-row" id="wbFormatRow"></div>
           </div>
-          <div class="field mb-3">
-            <label class="block text-[11.5px] font-bold text-text-dim mb-1">Размер этикетки</label>
-            <div class="radio-row flex gap-2.5 flex-wrap mt-1.5" id="wbSizeRow"></div>
+          <div class="field"><label>Размер этикетки</label>
+            <div class="radio-row" id="wbSizeRow"></div>
           </div>
         </div>
 
-        <div class="section-title text-[13px] font-extrabold mt-5.5 mb-2.5 flex items-center gap-2">
-          <span class="n w-5 h-5 rounded-md bg-text text-white text-[11px] flex items-center justify-center font-extrabold">2</span>
-          Этикетки Ozon
-        </div>
-        <div class="card bg-surface border border-border rounded-xl p-[18px_20px]">
-          <p class="m-0 text-text-dim text-[12.5px]">Ozon отдаёт этикетку только в формате PDF (<span class="font-mono text-[11.5px] text-text-dim">/v2/posting/fbs/package-label</span>). Выбор формата недоступен.</p>
+        <div class="section-title"><span class="n">2</span>Этикетки Ozon</div>
+        <div class="card settings-card">
+          <p style="margin:0;color:var(--text-dim);font-size:12.5px;">Ozon отдаёт этикетку только в формате PDF (<span class="mono">/v2/posting/fbs/package-label</span>). Выбор формата недоступен.</p>
         </div>
 
-        <div class="section-title text-[13px] font-extrabold mt-5.5 mb-2.5 flex items-center gap-2">
-          <span class="n w-5 h-5 rounded-md bg-text text-white text-[11px] flex items-center justify-center font-extrabold">3</span>
-          Сборочный лист и синхронизация
-        </div>
-        <div class="card bg-surface border border-border rounded-xl p-[18px_20px]">
-          <div class="grid2 grid grid-cols-2 gap-4">
-            <div class="field mb-3">
-              <label class="block text-[11.5px] font-bold text-text-dim mb-1">Позиций на сборочный лист (макс.)</label>
-              <input type="number" class="num-input w-[90px] border border-border-strong rounded-lg py-2 px-2.5 text-[13px]" id="setMaxPerSheet" value="50">
-            </div>
-            <div class="field mb-3">
-              <label class="block text-[11.5px] font-bold text-text-dim mb-1">Интервал автообновления ленты, мин</label>
-              <select id="setAutoRefresh" class="picker-select border border-border-strong rounded-lg py-1.5 px-2.5 text-[12.5px]">
+        <div class="section-title"><span class="n">3</span>Сборочный лист и синхронизация</div>
+        <div class="card settings-card">
+          <div class="grid2">
+            <div class="field"><label>Позиций на сборочный лист (макс.)</label><input type="number" class="num-input" id="setMaxPerSheet" value="50"></div>
+            <div class="field"><label>Интервал автообновления ленты, мин</label>
+              <select id="setAutoRefresh" class="picker-select">
                 <option value="15">15</option><option value="30" selected>30</option><option value="60">60</option>
               </select>
             </div>
           </div>
         </div>
-        <button class="btn btn-primary border border-accent bg-accent rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-white inline-flex items-center gap-1.5 hover:bg-[#D14F20] transition-colors" id="saveSettingsBtn" style="margin-top:14px;">Сохранить настройки</button>
+        <button class="btn btn-primary" id="saveSettingsBtn" style="margin-top:14px;">Сохранить настройки</button>
       </div>
 
-    </main>
+    </div>
   </div>
 </div>
 
 <div id="toast"></div>
 
 <!-- form-sheet modal -->
-<div class="modal-bg hidden fixed inset-0 bg-black/55 z-[100] flex items-start justify-center overflow-auto p-9" id="formSheetModal">
-  <div class="modal bg-white rounded-xl w-full max-w-[840px] shadow-2xl">
-    <div class="modal-head flex items-center justify-between p-4 pb-3.5 border-b border-border">
-      <h3 class="m-0 text-[15px] font-bold">Формирование сборочного листа</h3>
-      <button class="modal-close bg-none border-none text-[18px] text-text-faint cursor-pointer" data-close="formSheetModal">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-      </button>
-    </div>
-    <div class="modal-body p-[18px_20px] max-h-[60vh] overflow-auto">
-      <div class="field mb-3">
-        <label class="block text-[11.5px] font-bold text-text-dim mb-1">ФИО сборщика (по умолчанию для всех позиций листа)</label>
-        <input type="text" id="modalAssignee" class="w-full border border-border-strong rounded-lg py-2 px-2.5 text-[13px]" placeholder="напр. Ким О.С.">
-      </div>
-      <p class="text-[12px] text-text-dim mt-0 mb-2">В лист попадёт <b id="modalCount">0</b> позиций. Внутренний статус строк изменится на «В подборе». Статус на маркетплейсе при этом <b>не меняется</b> — он обновляется только на шаге «Передать в МП».</p>
-      <table class="simple-table w-full border-collapse text-[12px]">
-        <thead><tr><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">Артикул</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">Кол-во</th><th class="text-left text-[10.8px] uppercase text-text-dim border-b border-border p-[9px_12px] tracking-wide">ИП</th></tr></thead>
+<div class="modal-bg" id="formSheetModal">
+  <div class="modal">
+    <div class="modal-head"><h3>Формирование сборочного листа</h3><button class="modal-close" data-close="formSheetModal">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>ФИО сборщика (по умолчанию для всех позиций листа)</label><input type="text" id="modalAssignee" placeholder="напр. Ким О.С."></div>
+      <p style="font-size:12px;color:var(--text-dim);">В лист попадёт <b id="modalCount">0</b> позиций. Внутренний статус строк изменится на «В подборе». Статус на маркетплейсе при этом <b>не меняется</b> — он обновляется только на шаге «Передать в МП».</p>
+      <table class="simple-table" style="font-size:12px;">
+        <thead><tr><th>Артикул</th><th>Кол-во</th><th>ИП</th></tr></thead>
         <tbody id="modalPreview"></tbody>
       </table>
     </div>
-    <div class="modal-foot flex justify-end gap-2 p-3.5 pt-3.5 border-t border-border bg-surface-alt rounded-b-xl">
-      <button class="btn border border-border-strong bg-white rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-text inline-flex items-center gap-1.5 hover:border-text-dim transition-colors" data-close="formSheetModal">Отмена</button>
-      <button class="btn btn-primary border border-accent bg-accent rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-white inline-flex items-center gap-1.5 hover:bg-[#D14F20] transition-colors" id="modalConfirmBtn">Сформировать лист</button>
+    <div class="modal-foot">
+      <button class="btn" data-close="formSheetModal">Отмена</button>
+      <button class="btn btn-primary" id="modalConfirmBtn">Сформировать лист</button>
     </div>
   </div>
 </div>
 
 <!-- stickers modal -->
-<div class="modal-bg hidden fixed inset-0 bg-black/55 z-[100] flex items-start justify-center overflow-auto p-9" id="stickersModal">
-  <div class="modal bg-white rounded-xl w-full max-w-[840px] shadow-2xl">
-    <div class="modal-head flex items-center justify-between p-4 pb-3.5 border-b border-border">
-      <h3 class="m-0 text-[15px] font-bold">Печать стикеров</h3>
-      <button class="modal-close bg-none border-none text-[18px] text-text-faint cursor-pointer" data-close="stickersModal">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-      </button>
-    </div>
-    <div class="modal-body p-[18px_20px] max-h-[60vh] overflow-auto" id="stickersBody"></div>
-    <div class="modal-foot flex justify-end gap-2 p-3.5 pt-3.5 border-t border-border bg-surface-alt rounded-b-xl">
-      <button class="btn border border-border-strong bg-white rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-text inline-flex items-center gap-1.5 hover:border-text-dim transition-colors" data-close="stickersModal">Отмена</button>
-      <button class="btn btn-primary border border-accent bg-accent rounded-lg py-[7px] px-[13px] text-[12.5px] font-bold text-white inline-flex items-center gap-1.5 hover:bg-[#D14F20] transition-colors" id="confirmLabelsBtn">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-        Отправить на печать пачкой
-      </button>
+<div class="modal-bg" id="stickersModal">
+  <div class="modal">
+    <div class="modal-head"><h3>Печать стикеров</h3><button class="modal-close" data-close="stickersModal">✕</button></div>
+    <div class="modal-body" id="stickersBody"></div>
+    <div class="modal-foot">
+      <button class="btn" data-close="stickersModal">Отмена</button>
+      <button class="btn btn-primary" id="confirmLabelsBtn">🖨 Отправить на печать пачкой</button>
     </div>
   </div>
 </div>
@@ -512,7 +590,7 @@ function toast(msg,type='ok'){
   const el=document.getElementById('toast');
   const d=document.createElement('div');
   d.className='toast '+type;
-  d.innerHTML = `<svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${type==='ok'?'<polyline points="20 6 9 17 4 12"/>':'<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'}</svg><span>${msg}</span>`;
+  d.textContent=msg;
   el.appendChild(d);
   setTimeout(()=>{d.style.opacity='0';d.style.transition='opacity .25s';setTimeout(()=>d.remove(),250);},2800);
 }
